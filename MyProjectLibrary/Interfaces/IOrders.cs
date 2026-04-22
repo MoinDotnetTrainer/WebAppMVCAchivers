@@ -1,0 +1,14 @@
+﻿using MyProjectLibrary.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MyProjectLibrary.Interfaces
+{
+    public interface IOrders
+    {
+        Task AddOrders(Orders data);
+    }
+}

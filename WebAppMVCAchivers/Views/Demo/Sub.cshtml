@@ -1,0 +1,14 @@
+﻿@using WebAppMVCAchivers.Models
+@model MyProp
+@{
+    ViewData["Title"] = "Sub";
+}
+
+<h1>Sub</h1>
+
+<form method="post">
+    Enter X: <input type="number" asp-for="x" /> <br />
+    Enter Y :<input type="number" asp-for="y" /> <br />
+    <input type="submit" name="submit" value="submit" />
+    @TempData["res"]
+</form>
