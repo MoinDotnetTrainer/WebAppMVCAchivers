@@ -20,9 +20,9 @@ namespace WebAppMVCAchivers.Controllers
         }
 
         [HttpPost]// get the data from ui to model
-        public IActionResult CreateUser(Users data)
+        public async Task<IActionResult> CreateUser(Users data)
         {
-            _userBl.AddUsers(data);
+            await _userBl.AddUsers(data);  // service dll file
             return View();
         }
     }

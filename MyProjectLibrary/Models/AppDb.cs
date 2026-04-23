@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyProjectLibrary.Models
 {
-    public class AppDb : DbContext // base class ef core
+    public class AppDb : DbContext // connection base class ef core
     {
         public AppDb(DbContextOptions options) : base(options)
         {

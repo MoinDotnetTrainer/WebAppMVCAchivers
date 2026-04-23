@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace WebAppMVCAchivers
 {
     public class Program
@@ -8,6 +10,14 @@ namespace WebAppMVCAchivers
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+
+            builder.Services.AddDbContext<MyProjectLibrary.Models.AppDb>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            }); 
+
+            builder.Services.AddScoped<MyProjectLibrary.Interfaces.IUsers, MyProjectLibrary.BusinessLogic.UserBl>();    
 
             var app = builder.Build();
 
