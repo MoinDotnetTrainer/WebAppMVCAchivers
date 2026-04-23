@@ -42,5 +42,27 @@ namespace MyProjectLibrary.BusinessLogic
             return res;
 
         }
+
+        public async Task<Users> GetUserByID(int ID)
+        {
+            var res = await (from s in _db.Users select s).FirstOrDefaultAsync(x => x.ID == ID);
+            return res;
+        }
+
+        public async Task EditUsers(Users data)
+        {
+            _db.Users.Update(data);
+            await _db.SaveChangesAsync();
+            // observe that for update ,we not updateasync
+        }
+        public async Task DeleteUser(int ID)
+        {
+            var res = await _db.Users.FindAsync(ID);
+            if (res != null)
+            {
+                _db.Users.Remove(res);
+                await _db.SaveChangesAsync();
+            }
+        }
     }
 }

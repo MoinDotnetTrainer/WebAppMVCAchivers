@@ -7,8 +7,8 @@
 <div class="container mt-5">
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>🎬 Movie List</h2>
-        <a asp-action="Create" class="btn btn-primary">+ Add Movie</a>
+
+        <a asp-action="CreateUser" class="btn btn-primary">+ Add Users</a>
     </div>
 
     <div class="table-responsive">
@@ -35,6 +35,11 @@
                         <td>@item.Password</td>
                         <td>
                             @item.Dob
+                        </td>
+
+                        <td>
+                            <a asp-action="EditUser" asp-route-ID="@item.ID">Edit</a> |
+                            <a asp-action="DeleteUser" asp-route-ID="@item.ID">Delete</a>
                         </td>
                     </tr>
                 </tbody>

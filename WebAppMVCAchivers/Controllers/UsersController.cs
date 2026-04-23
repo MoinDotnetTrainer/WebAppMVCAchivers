@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyProjectLibrary.Models;
 using MyProjectLibrary.Interfaces;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace WebAppMVCAchivers.Controllers
 {
@@ -31,5 +32,35 @@ namespace WebAppMVCAchivers.Controllers
             var res = await _userBl.GetAllUsers();//users
             return View(res);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUser(int ID)
+        {
+            var res = await _userBl.GetUserByID(ID);
+            return View(res);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(Users data)
+        {
+            await _userBl.EditUsers(data);
+            return RedirectToAction("UsersData");
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser(int ID)
+        {
+            var res = await _userBl.GetUserByID(ID);
+            return View(res);
+        }
+
+
+        [HttpPost, ActionName("DeleteUser")]
+        public async Task<IActionResult> DeleteUserConfirm(int ID)
+        {
+            await _userBl.DeleteUser(ID);
+            return RedirectToAction("UsersData");
+        }
+
     }
 }
