@@ -14,6 +14,7 @@ namespace MyProjectLibrary.Models
         }
         public DbSet<Users> Users { get; set; } //table
         public DbSet<Orders> Orders { get; set; } //table
+        public DbSet<Movies> Movies { get; set; } //table
 
     }
 }

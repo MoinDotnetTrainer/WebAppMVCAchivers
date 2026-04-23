@@ -15,6 +15,10 @@ namespace MyProjectLibrary.Interfaces
         // Delete
         // xyz task
         Task AddUsers(Users data);// abs method
+
+        Task<List<Users>> GetAllUsers();  // collection all records
+
+
         // insert Ef
         //Task UpdateUsers(Users data);
         //Task<Users> GetUsers(int id);

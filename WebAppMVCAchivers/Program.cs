@@ -15,9 +15,10 @@ namespace WebAppMVCAchivers
             builder.Services.AddDbContext<MyProjectLibrary.Models.AppDb>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            }); 
+            });
 
-            builder.Services.AddScoped<MyProjectLibrary.Interfaces.IUsers, MyProjectLibrary.BusinessLogic.UserBl>();    
+            builder.Services.AddScoped<MyProjectLibrary.Interfaces.IUsers, MyProjectLibrary.BusinessLogic.UserBl>();
+            builder.Services.AddScoped<MyProjectLibrary.Interfaces.IMovies, MyProjectLibrary.BusinessLogic.MoviesBl>();
 
             var app = builder.Build();
 

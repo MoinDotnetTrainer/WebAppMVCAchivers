@@ -1,4 +1,5 @@
-﻿using MyProjectLibrary.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using MyProjectLibrary.Interfaces;
 using MyProjectLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,18 @@ namespace MyProjectLibrary.BusinessLogic
             // chk db , table , prop , data 
             // implemnet abs method
             // insert ops // we will EF core
+        }
+
+        public async Task<List<Users>> GetAllUsers()
+        {
+
+            // syntax to get all data using linq
+
+            //  return await _db.Users.ToListAsync();
+
+            var res = await (from s in _db.Users select s).ToListAsync();
+            return res;
+
         }
     }
 }

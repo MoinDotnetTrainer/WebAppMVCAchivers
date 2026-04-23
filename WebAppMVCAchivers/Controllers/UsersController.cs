@@ -23,7 +23,13 @@ namespace WebAppMVCAchivers.Controllers
         public async Task<IActionResult> CreateUser(Users data)
         {
             await _userBl.AddUsers(data);  // service dll file
-            return View();
+            return RedirectToAction("UsersData");
+        }
+
+        public async Task<IActionResult> UsersData()
+        {
+            var res = await _userBl.GetAllUsers();//users
+            return View(res);
         }
     }
 }
