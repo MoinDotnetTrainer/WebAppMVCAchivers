@@ -2,6 +2,7 @@
 @model Users
 @{
     ViewData["Title"] = "AddUsers";
+    Layout = "_MyLayout";
 }
 
 <!-- Bootstrap 5 CDN -->
@@ -37,12 +38,9 @@
                         <input asp-for="Dob" type="date" class="form-control" />
                     </div>
                     <input type="submit" value="Save" class="btn btn-success" />
-
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-
+                    <a asp-action="Usersdata" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
     </div>
-
 </body>

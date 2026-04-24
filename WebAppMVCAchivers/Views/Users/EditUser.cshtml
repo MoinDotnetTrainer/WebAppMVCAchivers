@@ -2,6 +2,7 @@
 @model Users
 @{
     ViewData["Title"] = "Edit Users";
+    Layout = "_MyLayout";
 }
 
 <!-- Bootstrap 5 CDN -->
@@ -38,7 +39,7 @@
                     </div>
                     <input type="submit" value="Save Changes" class="btn btn-success" />
 
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                    <a asp-action="Usersdata" class="btn btn-secondary">Cancel</a>
 
                 </form>
             </div>

@@ -62,5 +62,52 @@ namespace WebAppMVCAchivers.Controllers
             return RedirectToAction("UsersData");
         }
 
+        [HttpGet]
+        public IActionResult Authenticate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [HttpPost]
+        public async Task<IActionResult> Authenticate(LoginModel data)
+        {
+            if (data == null)
+            {
+                TempData["ErrorMsg"] = "Invalid request.";
+                return View();
+            }
+
+            try
+            {
+                var res = await _userBl.UserLogin(data);
+
+                if (res)
+                {
+                    return RedirectToAction("HomePage");
+                }
+
+                TempData["ErrorMsg"] = "Invalid email or password.";
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMsg"] = ex.Message;
+                return View(data);
+            }
+        }
+        public IActionResult HomePage()
+        {
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Authenticate");
+        }
+        public IActionResult Validation()
+        {
+            return View();
+        }
     }
 }

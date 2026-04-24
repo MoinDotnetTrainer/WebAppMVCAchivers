@@ -60,9 +60,15 @@ namespace MyProjectLibrary.BusinessLogic
             var res = await _db.Users.FindAsync(ID);
             if (res != null)
             {
-                _db.Users.Remove(res);
+                _db.Users.Remove(res);// await
                 await _db.SaveChangesAsync();
             }
+        }
+
+        public async Task<bool> UserLogin(LoginModel data)
+        {
+            var res = await (from s in _db.Users select s).AnyAsync(x => x.Email == data.Email && x.Password == data.Password);
+            return res;
         }
     }
 }

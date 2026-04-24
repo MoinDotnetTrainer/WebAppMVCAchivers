@@ -24,6 +24,7 @@ namespace MyProjectLibrary.Interfaces
 
         Task DeleteUser(int ID);
 
+        Task<bool> UserLogin(LoginModel data);
 
         // insert Ef
         //Task UpdateUsers(Users data);
