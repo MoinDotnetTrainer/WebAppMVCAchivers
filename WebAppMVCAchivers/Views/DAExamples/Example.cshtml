@@ -1,0 +1,86 @@
+﻿@model WebAppMVCAchivers.DTO.ValidModel
+@{
+    ViewData["Title"] = "Example";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg">
+                <div class="card-header bg-dark text-white text-center">
+                    <h4>Validate Form</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post">
+
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" placeholder="Enter email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <!-- Department -->
+                        <div class="mb-3">
+                            <label class="form-label">Department</label>
+                            <select asp-for="Dept" class="form-select">
+                                <option value="">-- Select Dept --</option>
+                                <option>IT</option>
+                                <option>HR</option>
+                                <option>Finance</option>
+                                <option>Admin</option>
+                            </select>
+                            <span asp-validation-for="Dept" class="text-danger"></span>
+                        </div>
+
+                        <!-- Age -->
+                        <div class="mb-3">
+                            <label class="form-label">Age</label>
+                            <input asp-for="Age" type="number" class="form-control" placeholder="Enter age" />
+                            <span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea asp-for="Address" class="form-control" rows="3" placeholder="Enter address"></textarea>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit -->
+                        <input type="submit" class="btn btn-primary w-100" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MyProjectLibrary.Models;
+using WebAppMVCAchivers.DTO;
 using MyProjectLibrary.Interfaces;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using MyProjectLibrary.Models;
 
 namespace WebAppMVCAchivers.Controllers
 {
@@ -21,10 +22,27 @@ namespace WebAppMVCAchivers.Controllers
         }
 
         [HttpPost]// get the data from ui to model
-        public async Task<IActionResult> CreateUser(Users data)
+        public async Task<IActionResult> CreateUser(WebAppMVCAchivers.DTO.Users data)
         {
-            await _userBl.AddUsers(data);  // service dll file
-            return RedirectToAction("UsersData");
+            if (ModelState.IsValid)
+            {
+
+
+                var res = new MyProjectLibrary.Models.Users
+                {
+                    Name = data.Name,
+                    Email = data.Email,
+                    Password = data.Password,
+                    Dob = data.Dob
+                };
+
+                await _userBl.AddUsers(res);  // service dll file
+                return RedirectToAction("UsersData");
+            }
+            else
+            {
+                return View(data);
+            }
         }
 
         public async Task<IActionResult> UsersData()
@@ -42,9 +60,17 @@ namespace WebAppMVCAchivers.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(Users data)
+        public async Task<IActionResult> EditUser(WebAppMVCAchivers.DTO.Users data)
         {
-            await _userBl.EditUsers(data);
+            var res = new MyProjectLibrary.Models.Users
+            {
+                ID = data.ID,
+                Name = data.Name,
+                Email = data.Email,
+                Password = data.Password,
+                Dob = data.Dob
+            };
+            await _userBl.EditUsers(res);
             return RedirectToAction("UsersData");
         }
         [HttpGet]
@@ -69,30 +95,42 @@ namespace WebAppMVCAchivers.Controllers
         }
 
         [HttpPost]
-        [HttpPost]
-        public async Task<IActionResult> Authenticate(LoginModel data)
+        public async Task<IActionResult> Authenticate(WebAppMVCAchivers.DTO.LoginModel data)
         {
-            if (data == null)
+            if (ModelState.IsValid)
             {
-                TempData["ErrorMsg"] = "Invalid request.";
-                return View();
-            }
-
-            try
-            {
-                var res = await _userBl.UserLogin(data);
-
-                if (res)
+                if (data == null)
                 {
-                    return RedirectToAction("HomePage");
+                    TempData["ErrorMsg"] = "Invalid request.";
+                    return View();
                 }
 
-                TempData["ErrorMsg"] = "Invalid email or password.";
-                return View(data);
+                try
+                {
+                    var result = new MyProjectLibrary.Models.LoginModel
+                    {
+                        Email = data.Email,
+                        Password = data.Password,
+
+                    };
+                    var res = await _userBl.UserLogin(result);
+
+                    if (res)
+                    {
+                        return RedirectToAction("HomePage");
+                    }
+
+                    TempData["ErrorMsg"] = "Invalid email or password.";
+                    return View(data);
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMsg"] = ex.Message;
+                    return View(data);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                TempData["ErrorMsg"] = ex.Message;
                 return View(data);
             }
         }

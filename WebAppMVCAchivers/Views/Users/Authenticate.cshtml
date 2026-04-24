@@ -1,4 +1,4 @@
-﻿@using MyProjectLibrary.Models
+﻿@using WebAppMVCAchivers.DTO
 @model LoginModel
 
 @{
@@ -32,13 +32,16 @@
             <!-- Email -->
             <div class="mb-3">
                 <label class="form-label">Email address</label>
-                <input type="email" asp-for="Email" name="email" class="form-control" placeholder="Enter email" required />
+                <input type="email" asp-for="Email" name="email" class="form-control" placeholder="Enter email" />
+
+                <span style="color:red" asp-validation-for="Email"></span>
             </div>
 
             <!-- Password -->
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="password" asp-for="Password" name="password" class="form-control" placeholder="Enter password" required />
+                <input type="password" asp-for="Password" name="password" class="form-control" placeholder="Enter password" />
+                <span style="color:red" asp-validation-for="Password"></span>
             </div>
 
 
@@ -60,3 +63,9 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

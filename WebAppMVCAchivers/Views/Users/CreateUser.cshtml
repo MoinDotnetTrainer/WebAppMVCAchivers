@@ -1,4 +1,4 @@
-﻿@using MyProjectLibrary.Models
+﻿@using WebAppMVCAchivers.DTO
 @model Users
 @{
     ViewData["Title"] = "AddUsers";
@@ -21,21 +21,25 @@
                     <div class="mb-3">
                         <label class="form-label">Name</label>
                         <input asp-for="Name" class="form-control" placeholder="Enter name" />
+                 <span style="color:red" asp-validation-for="Name"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" />
+                        <span style="color:red" asp-validation-for="Email"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Password</label>
                         <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+                        <span style="color:red" asp-validation-for="Password"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Date of Birth</label>
                         <input asp-for="Dob" type="date" class="form-control" />
+                        <span style="color:red" asp-validation-for="Dob"></span>
                     </div>
                     <input type="submit" value="Save" class="btn btn-success" />
                     <a asp-action="Usersdata" class="btn btn-secondary">Cancel</a>
@@ -44,3 +48,8 @@
         </div>
     </div>
 </body>
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");     
+    }
+   }   
