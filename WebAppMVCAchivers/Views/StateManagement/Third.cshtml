@@ -1,0 +1,22 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Third";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h1>Third</h1>
+
+
+<p>
+    @ViewBag.res
+</p>
+<p>
+    @ViewData["res1"]
+</p>
+
+<p>
+    @TempData["res2"]
+</p>
+<p>
+    @HttpContextAccessor.HttpContext.Session.GetString("mydata");
+</p>

@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebAppMVCAchivers.DTO;
-using MyProjectLibrary.Interfaces;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using MyProjectLibrary.Interfaces;
 using MyProjectLibrary.Models;
+using WebAppMVCAchivers.DTO;
 
 namespace WebAppMVCAchivers.Controllers
 {
@@ -24,10 +25,8 @@ namespace WebAppMVCAchivers.Controllers
         [HttpPost]// get the data from ui to model
         public async Task<IActionResult> CreateUser(WebAppMVCAchivers.DTO.Users data)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid)// dto prop all data ann
             {
-
-
                 var res = new MyProjectLibrary.Models.Users
                 {
                     Name = data.Name,
@@ -47,6 +46,12 @@ namespace WebAppMVCAchivers.Controllers
 
         public async Task<IActionResult> UsersData()
         {
+            var login = HttpContext.Session.GetString("Mylogin");
+
+            if (login == null)
+            {
+                return RedirectToAction("Authenticate");
+            }
             var res = await _userBl.GetAllUsers();//users
             return View(res);
         }
@@ -54,6 +59,12 @@ namespace WebAppMVCAchivers.Controllers
         [HttpGet]
         public async Task<IActionResult> EditUser(int ID)
         {
+            var login = HttpContext.Session.GetString("Mylogin");
+
+            if (login == null)
+            {
+                return RedirectToAction("Authenticate");
+            }
             var res = await _userBl.GetUserByID(ID);
             return View(res);
         }
@@ -76,6 +87,12 @@ namespace WebAppMVCAchivers.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteUser(int ID)
         {
+            var login = HttpContext.Session.GetString("Mylogin");
+
+            if (login == null)
+            {
+                return RedirectToAction("Authenticate");
+            }
             var res = await _userBl.GetUserByID(ID);
             return View(res);
         }
@@ -107,6 +124,7 @@ namespace WebAppMVCAchivers.Controllers
 
                 try
                 {
+
                     var result = new MyProjectLibrary.Models.LoginModel
                     {
                         Email = data.Email,
@@ -117,6 +135,7 @@ namespace WebAppMVCAchivers.Controllers
 
                     if (res)
                     {
+                        HttpContext.Session.SetString("Mylogin", data.Email);
                         return RedirectToAction("HomePage");
                     }
 
@@ -136,15 +155,28 @@ namespace WebAppMVCAchivers.Controllers
         }
         public IActionResult HomePage()
         {
+            var login = HttpContext.Session.GetString("Mylogin");
+
+            if (login == null)
+            {
+                return RedirectToAction("Authenticate");
+            }
             return View();
         }
 
         public IActionResult Logout()
         {
+            HttpContext.Session.Remove("Mylogin");
             return RedirectToAction("Authenticate");
         }
         public IActionResult Validation()
         {
+            var login = HttpContext.Session.GetString("Mylogin");
+
+            if (login == null)
+            {
+                return RedirectToAction("Authenticate");
+            }
             return View();
         }
     }

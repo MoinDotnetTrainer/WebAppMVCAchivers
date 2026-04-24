@@ -20,6 +20,12 @@ namespace WebAppMVCAchivers
             builder.Services.AddScoped<MyProjectLibrary.Interfaces.IUsers, MyProjectLibrary.BusinessLogic.UserBl>();
             builder.Services.AddScoped<MyProjectLibrary.Interfaces.IMovies, MyProjectLibrary.BusinessLogic.MoviesBl>();
 
+            builder.Services.AddSession(option => {
+            option.IdleTimeout = TimeSpan.FromSeconds(60);
+                option.Cookie.IsEssential = true;
+            });
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,7 +38,7 @@ namespace WebAppMVCAchivers
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

@@ -1,0 +1,32 @@
+﻿@using WebAppMVCAchivers.Controllers
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Four";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h1>Four</h1>
+
+
+<table border="1">
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+    </tr>
+    @foreach (var item in ViewData["res"] as List<MyData>)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.Name
+            </td>
+
+        </tr>
+    }
+</table>
+
+<p>
+    @HttpContextAccessor.HttpContext.Session.GetString("mydata");
+</p>

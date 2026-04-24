@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +39,13 @@
                         <a class="nav-link" asp-action="UsersData" asp-controller="Users">Display Users</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" asp-action="First" asp-controller="StateManagement">State Management</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" asp-action="Logout" asp-controller="Users">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Logout" asp-controller="Users">Welcome Back: @HttpContextAccessor.HttpContext.Session.GetString("Mylogin")</a>
                     </li>
                 </ul>
 
@@ -45,13 +53,14 @@
                 <div class="d-flex">
                     <a href="#" class="btn btn-outline-light me-2">Login</a>
                     <a href="#" class="btn btn-primary">Sign Up</a>
-                </div>
+
+                    </div>
 
             </div>
         </div>
     </nav>
 
-   
+
 
     <!-- 🔥 Dynamic Content Area -->
     <main class="container my-5">
@@ -65,9 +74,6 @@
 
 </body>
 </html>
-
-
-
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
