@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyProjectLibrary.Models;
 
@@ -11,9 +12,11 @@ using MyProjectLibrary.Models;
 namespace MyProjectLibrary.Migrations
 {
     [DbContext(typeof(AppDb))]
-    partial class AppDbModelSnapshot : ModelSnapshot
+    [Migration("20260427055158_person")]
+    partial class person
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,40 +47,6 @@ namespace MyProjectLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tbl_Aadhar");
-                });
-
-            modelBuilder.Entity("MyProjectLibrary.Models.Citizen", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("CitizenName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Citizen");
-                });
-
-            modelBuilder.Entity("MyProjectLibrary.Models.Country", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("CountryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Country");
                 });
 
             modelBuilder.Entity("MyProjectLibrary.Models.Movies", b =>
@@ -151,8 +120,7 @@ namespace MyProjectLibrary.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AadharID")
-                        .IsUnique();
+                    b.HasIndex("AadharID");
 
                     b.ToTable("Pan");
                 });
@@ -199,28 +167,6 @@ namespace MyProjectLibrary.Migrations
                     b.ToTable("Person");
                 });
 
-            modelBuilder.Entity("MyProjectLibrary.Models.State", b =>
-                {
-                    b.Property<int>("StateID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StateID"));
-
-                    b.Property<int>("CountryID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StateName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StateID");
-
-                    b.HasIndex("CountryID");
-
-                    b.ToTable("State");
-                });
-
             modelBuilder.Entity("MyProjectLibrary.Models.Users", b =>
                 {
                     b.Property<int>("ID")
@@ -249,33 +195,11 @@ namespace MyProjectLibrary.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MyProjectLibrary.Models.Voters", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("VoterName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("refid")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("refid");
-
-                    b.ToTable("Voters");
-                });
-
             modelBuilder.Entity("MyProjectLibrary.Models.Pan", b =>
                 {
                     b.HasOne("MyProjectLibrary.Models.Aadhar", "Aadhar")
-                        .WithOne("Pan")
-                        .HasForeignKey("MyProjectLibrary.Models.Pan", "AadharID")
+                        .WithMany()
+                        .HasForeignKey("AadharID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -291,39 +215,6 @@ namespace MyProjectLibrary.Migrations
                         .IsRequired();
 
                     b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("MyProjectLibrary.Models.State", b =>
-                {
-                    b.HasOne("MyProjectLibrary.Models.Country", "Country")
-                        .WithMany("States")
-                        .HasForeignKey("CountryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("MyProjectLibrary.Models.Voters", b =>
-                {
-                    b.HasOne("MyProjectLibrary.Models.Citizen", "Citizen")
-                        .WithMany()
-                        .HasForeignKey("refid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Citizen");
-                });
-
-            modelBuilder.Entity("MyProjectLibrary.Models.Aadhar", b =>
-                {
-                    b.Navigation("Pan")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MyProjectLibrary.Models.Country", b =>
-                {
-                    b.Navigation("States");
                 });
 #pragma warning restore 612, 618
         }

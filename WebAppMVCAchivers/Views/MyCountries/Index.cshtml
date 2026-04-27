@@ -1,0 +1,42 @@
+﻿@model List<MyProjectLibrary.Models.Country>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+
+
+<h2>Country & States</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>States</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var country in Model)
+        {
+            <tr>
+                <td>@country.CountryName</td>
+                <td>
+                    @if (country.States != null && country.States.Any())
+                    {
+                        <ul>
+                            @foreach (var state in country.States)
+                            {
+                                <li>@state.StateName</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No States</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

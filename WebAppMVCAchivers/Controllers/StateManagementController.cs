@@ -16,8 +16,18 @@ namespace WebAppMVCAchivers.Controllers
             ViewData["res1"] = "SOme data from view data:" + System.DateTime.Now.ToLongDateString();
             TempData["res2"] = "Some data from temp data:" + System.DateTime.Now.ToLongDateString();
             HttpContext.Session.SetString("mydata", "Data from session:" + System.DateTime.Now.ToLongDateString());
+
+            CookieOptions options = new CookieOptions
+            {
+                Expires = DateTime.Now.AddYears(30), // expiry time
+                HttpOnly = true,                      // not accessible via JS
+                IsEssential = true                    // GDPR-related (optional)
+            };
+
+            Response.Cookies.Append("UserName", "John", options);
+
             return RedirectToAction("Second");
-            //   return View();
+          //     return View();
         }
         public IActionResult Second()
         {

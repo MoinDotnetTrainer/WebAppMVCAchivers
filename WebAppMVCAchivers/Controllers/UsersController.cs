@@ -50,7 +50,8 @@ namespace WebAppMVCAchivers.Controllers
 
             if (login == null)
             {
-                return RedirectToAction("Authenticate");
+                // return RedirectToAction("Authenticate");
+                return PartialView("ErrorPartial");
             }
             var res = await _userBl.GetAllUsers();//users
             return View(res);
@@ -63,7 +64,8 @@ namespace WebAppMVCAchivers.Controllers
 
             if (login == null)
             {
-                return RedirectToAction("Authenticate");
+                return PartialView("ErrorPartial");
+                //  return RedirectToAction("Authenticate");
             }
             var res = await _userBl.GetUserByID(ID);
             return View(res);
@@ -91,7 +93,8 @@ namespace WebAppMVCAchivers.Controllers
 
             if (login == null)
             {
-                return RedirectToAction("Authenticate");
+                return PartialView("ErrorPartial");
+                // return RedirectToAction("Authenticate");
             }
             var res = await _userBl.GetUserByID(ID);
             return View(res);
@@ -159,7 +162,8 @@ namespace WebAppMVCAchivers.Controllers
 
             if (login == null)
             {
-                return RedirectToAction("Authenticate");
+                return PartialView("ErrorPartial");
+                //  return RedirectToAction("Authenticate");
             }
             return View();
         }
@@ -175,7 +179,21 @@ namespace WebAppMVCAchivers.Controllers
 
             if (login == null)
             {
-                return RedirectToAction("Authenticate");
+                return PartialView("ErrorPartial");
+                // return RedirectToAction("Authenticate");
+            }
+            return View();
+        }
+
+
+        public IActionResult Get()
+        {
+          
+            string str = null;
+            if (str == null)
+            {
+                TempData["value"] = str.Length;
+                return View();
             }
             return View();
         }

@@ -1,0 +1,30 @@
+﻿@model List<MyProjectLibrary.Models.Pan>
+@{
+    ViewData["Title"] = "GetPan";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h1>GetPan</h1>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>PanNO</th>
+            <th>Pan Name</th>
+            <th>AAdhar</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PanNo</td>
+                <td>@item.PanUserName</td>
+                <td>@item.Aadhar.FatherName</td>
+            </tr>
+        }
+    </tbody>
+</table>

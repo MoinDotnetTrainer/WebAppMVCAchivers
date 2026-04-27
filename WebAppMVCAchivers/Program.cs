@@ -19,9 +19,12 @@ namespace WebAppMVCAchivers
 
             builder.Services.AddScoped<MyProjectLibrary.Interfaces.IUsers, MyProjectLibrary.BusinessLogic.UserBl>();
             builder.Services.AddScoped<MyProjectLibrary.Interfaces.IMovies, MyProjectLibrary.BusinessLogic.MoviesBl>();
+            builder.Services.AddScoped<MyProjectLibrary.Interfaces.IAadhar, MyProjectLibrary.BusinessLogic.AadharBl>();
+            builder.Services.AddScoped<MyProjectLibrary.Interfaces.ICountry, MyProjectLibrary.BusinessLogic.CountryBl>();
 
-            builder.Services.AddSession(option => {
-            option.IdleTimeout = TimeSpan.FromSeconds(60);
+            builder.Services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromMinutes(60);
                 option.Cookie.IsEssential = true;
             });
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -29,12 +32,18 @@ namespace WebAppMVCAchivers
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();  // evelopment environment error page  
+
+            }
+            else if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -45,7 +54,7 @@ namespace WebAppMVCAchivers
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Users}/{action=Authenticate}/{id?}");
 
             app.Run();
         }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyProjectLibrary.Models;
 
@@ -11,9 +12,11 @@ using MyProjectLibrary.Models;
 namespace MyProjectLibrary.Migrations
 {
     [DbContext(typeof(AppDb))]
-    partial class AppDbModelSnapshot : ModelSnapshot
+    [Migration("20260427060332_state")]
+    partial class state
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,8 +154,7 @@ namespace MyProjectLibrary.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AadharID")
-                        .IsUnique();
+                    b.HasIndex("AadharID");
 
                     b.ToTable("Pan");
                 });
@@ -274,8 +276,8 @@ namespace MyProjectLibrary.Migrations
             modelBuilder.Entity("MyProjectLibrary.Models.Pan", b =>
                 {
                     b.HasOne("MyProjectLibrary.Models.Aadhar", "Aadhar")
-                        .WithOne("Pan")
-                        .HasForeignKey("MyProjectLibrary.Models.Pan", "AadharID")
+                        .WithMany()
+                        .HasForeignKey("AadharID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -296,7 +298,7 @@ namespace MyProjectLibrary.Migrations
             modelBuilder.Entity("MyProjectLibrary.Models.State", b =>
                 {
                     b.HasOne("MyProjectLibrary.Models.Country", "Country")
-                        .WithMany("States")
+                        .WithMany()
                         .HasForeignKey("CountryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -313,17 +315,6 @@ namespace MyProjectLibrary.Migrations
                         .IsRequired();
 
                     b.Navigation("Citizen");
-                });
-
-            modelBuilder.Entity("MyProjectLibrary.Models.Aadhar", b =>
-                {
-                    b.Navigation("Pan")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MyProjectLibrary.Models.Country", b =>
-                {
-                    b.Navigation("States");
                 });
 #pragma warning restore 612, 618
         }
