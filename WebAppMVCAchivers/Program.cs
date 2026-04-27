@@ -21,6 +21,7 @@ namespace WebAppMVCAchivers
             builder.Services.AddScoped<MyProjectLibrary.Interfaces.IMovies, MyProjectLibrary.BusinessLogic.MoviesBl>();
             builder.Services.AddScoped<MyProjectLibrary.Interfaces.IAadhar, MyProjectLibrary.BusinessLogic.AadharBl>();
             builder.Services.AddScoped<MyProjectLibrary.Interfaces.ICountry, MyProjectLibrary.BusinessLogic.CountryBl>();
+            builder.Services.AddScoped<MyProjectLibrary.Interfaces.IUsersSp, MyProjectLibrary.BusinessLogic.UserblSp>();
 
             builder.Services.AddSession(option =>
             {

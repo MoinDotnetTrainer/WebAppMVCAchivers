@@ -41,6 +41,9 @@
                     <a class="nav-link" asp-action="Logout" asp-controller="Users">Logout</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="UsersSp">Curd SP</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" asp-action="Logout" asp-controller="Users">Welcome Back: @HttpContextAccessor.HttpContext.Session.GetString("Mylogin")</a>
                 </li>
             </ul>

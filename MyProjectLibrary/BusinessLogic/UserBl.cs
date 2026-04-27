@@ -36,10 +36,14 @@ namespace MyProjectLibrary.BusinessLogic
 
             // syntax to get all data using linq
 
-            //  return await _db.Users.ToListAsync();
+            return await _db.Users.AsNoTracking().ToListAsync();
 
-            var res = await (from s in _db.Users select s).ToListAsync();
-            return res;
+            // var res = await (from s in _db.Users select s).ToListAsync();
+            // return res;
+
+            // diff complex queries using linq
+            // joins , order by t get the data
+            // merge Union etc 
 
         }
 
@@ -51,9 +55,18 @@ namespace MyProjectLibrary.BusinessLogic
 
         public async Task EditUsers(Users data)
         {
-            _db.Users.Update(data);
+            var res = await _db.Users.Where(x => x.ID == data.ID).AsNoTracking().FirstOrDefaultAsync();
+            // is now tracked by ef core
+            var newrec = new Users
+            {
+                ID = res.ID,
+                Name = data.Name,
+                Email = data.Email,
+                Password = data.Password,
+                Dob = data.Dob
+            };
+            _db.Users.Update(newrec);
             await _db.SaveChangesAsync();
-            // observe that for update ,we not updateasync
         }
         public async Task DeleteUser(int ID)
         {

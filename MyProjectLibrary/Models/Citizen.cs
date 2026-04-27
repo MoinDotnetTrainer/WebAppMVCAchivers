@@ -23,7 +23,7 @@ namespace MyProjectLibrary.Models
 
         public int refid { get; set; }  // fk
 
-        [ForeignKey("refid")]
+        [ForeignKey("refid")]  // fk should be define at navigation level not field level
         public Citizen Citizen { get; set; }
     }
 }
