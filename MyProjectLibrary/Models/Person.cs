@@ -21,6 +21,6 @@ namespace MyProjectLibrary.Models
         public string PassportNumber { get; set; }
 
         public int refid { get; set; }  // fk
-        public Person Person { get; set; }  // ref
+        public virtual Person Person { get; set; }  // ref
     }
 }

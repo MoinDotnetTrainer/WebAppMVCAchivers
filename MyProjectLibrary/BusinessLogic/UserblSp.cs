@@ -23,8 +23,6 @@ namespace MyProjectLibrary.BusinessLogic
             string sql = "exec Sp_GetAllData";
             return await _db.Users.FromSqlRaw(sql).ToListAsync();
         }
-
-
         public async Task AddUsers(Users Data)
         {
             string Sql = "Exec Sp_Insert @Name ,@Email , @Password ,@Dob";

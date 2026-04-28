@@ -19,8 +19,6 @@ namespace MyProjectLibrary.BusinessLogic
 
         // async
 
-
-
         public async Task AddUsers(Models.Users data)
         {
             await _db.Users.AddAsync(data);

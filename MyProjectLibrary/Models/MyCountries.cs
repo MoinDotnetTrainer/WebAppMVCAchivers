@@ -12,7 +12,7 @@ namespace MyProjectLibrary.Models
         [Key]
         public int ID { get; set; }
         public string CountryName { get; set; }
-        public ICollection<State> States { get; set; }
+        public virtual ICollection<State> States { get; set; }
     }
 
     public class State
@@ -23,6 +23,6 @@ namespace MyProjectLibrary.Models
         public string StateName { get; set; }
 
         public int CountryID { get; set; }  //fk
-        public Country Country { get; set; }
+        public virtual Country Country { get; set; }
     }
 }

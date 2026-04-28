@@ -20,9 +20,16 @@ namespace MyProjectLibrary.BusinessLogic
 
         public async Task<List<Country>> GetCountriesAsync()
         {
-            return await _db.Country.Include(x=>x.States).ToListAsync();
+            return await _db.Country.Include(x => x.States).ToListAsync();  // eager load
+        }
+
+        public async Task<List<Country>> GetCountriesAsyncLazy()
+        {
+            return await _db.Country.ToListAsync();
 
            
+
+            // step 2 states --> lazy loading --> hit database
         }
     }
 }

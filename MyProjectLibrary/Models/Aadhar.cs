@@ -17,7 +17,7 @@ namespace MyProjectLibrary.Models
         public string Name { get; set; }
         public DateTime Dob { get; set; }
         public string FatherName { get; set; }
-        public Pan Pan { get; set; }  // navigation
+        public  virtual Pan Pan { get; set; }  // navigation
     }
 
     public class Pan
@@ -28,7 +28,7 @@ namespace MyProjectLibrary.Models
         public string PanUserName { get; set; }
 
         public int AadharID { get; set; }  // fk
-        public Aadhar Aadhar { get; set; }  // navigation , ref for fk
+        public virtual Aadhar Aadhar { get; set; }  // navigation , ref for fk
 
         // Paent ID will be foreign key to Aadhar table 
     }

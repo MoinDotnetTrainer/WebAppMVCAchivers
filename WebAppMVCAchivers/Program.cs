@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebAppMVCAchivers.Models;
 
 namespace WebAppMVCAchivers
 {
@@ -11,10 +12,16 @@ namespace WebAppMVCAchivers
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            Rectangle rect = new Square();
+            rect.Width = 5;
+            rect.Height = 10;
+
+            Console.WriteLine(rect.Area()); // Expected: 50
+
 
             builder.Services.AddDbContext<MyProjectLibrary.Models.AppDb>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             builder.Services.AddScoped<MyProjectLibrary.Interfaces.IUsers, MyProjectLibrary.BusinessLogic.UserBl>();

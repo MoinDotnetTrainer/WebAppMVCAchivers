@@ -15,5 +15,10 @@ namespace WebAppMVCAchivers.Controllers
             var res = await _countryBl.GetCountriesAsync();
             return View(res);
         }
+        public async Task<IActionResult> LazyLoad()
+        {
+            var res = await _countryBl.GetCountriesAsyncLazy();
+            return View(res);
+        }
     }
 }

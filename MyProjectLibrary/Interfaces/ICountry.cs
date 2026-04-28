@@ -10,5 +10,7 @@ namespace MyProjectLibrary.Interfaces
     public interface ICountry
     {
         Task<List<Country>> GetCountriesAsync();
+
+        Task<List<Country>> GetCountriesAsyncLazy();
     }
 }
